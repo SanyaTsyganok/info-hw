@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welder – my future profession</title>
+
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="modal" data-bs-backdrop="static" tabindex="-1" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Формочка</h5>
+          </div>
+          <div class="modal-body">
+            <form id="my-form">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"
+                  >Введи своє імʼя</label
+                >
+                <input
+                  class="form-control"
+                  id="exampleInputName"
+                  aria-describedby="nameHelp"
+                />
+                <div class="invalid-feedback">Будь ласка, введи своє імʼя</div>
+                <div class="valid-feedback">Дякую!</div>
+                <div id="nameHelp" class="form-text">
+                  Не соромся, для нас важливі імена наших користувачів
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              id="close-form"
+            >
+              Закрити
+            </button>
+            <button
+              id="submit-form"
+              type="button"
+              class="btn btn-primary"
+              type="submit"
+              form="form"
+            >
+              Надіслати
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h1 class="main-heading">
+        My future profession – <span style="color: red">Welder</span>
+      </h1>
+
+      <h2 id="hello" class="center my-5 hide">Welcome to the website</h2>
+
+      <div style="display: grid; place-content: center; margin-top: 10px">
+        <a href="./safety-issues.html" class="centered">Safety Issues</a>
+      </div>
+      <div class="main-image-container centered">
+        <a href="https://en.wikipedia.org/wiki/Welder" target="_blank">
+          <img
+            src="https://hips.hearstapps.com/hmg-prod/images/welder-lede-1510843467.jpg"
+            alt="welder"
+          />
+        </a>
+      </div>
+
+      <table class="centered table">
+        <thead>
+          <tr>
+            <th
+              colspan="3"
+              style="
+                color: red;
+                font-weight: 900;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular',
+                  'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
+                  sans-serif;
+              "
+            >
+              Time allocated for preparation for admission per week
+            </th>
+          </tr>
+          <tr>
+            <th style="color: orange">Number</th>
+            <th
+              style="
+                color: yellow;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode',
+                  'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+              "
+            >
+              НМТ subject
+            </th>
+            <th style="color: green">Hours count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="special-row">
+            <td>1</td>
+            <td>Math</td>
+            <td>13 hours</td>
+          </tr>
+          <tr style="color: blue; font-size: 0.5rem">
+            <td>2</td>
+            <td>Ukrainian language</td>
+            <td>5 hours</td>
+          </tr>
+          <tr style="color: purple">
+            <td>3</td>
+            <td>History of Ukraine</td>
+            <td>4 hours</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td class="moving">English</td>
+            <td>7 hours</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+  <script>
+    const isValidInput = () => {
+      const value = $("#exampleInputName").val();
+      return value.trim().length !== 0;
+    };
+
+    $(document).ready(function () {
+      $("#myModal").modal("show");
+    });
+
+    const showModal = () => $("#myModal").modal("show");
+    const hideModal = () => $("#myModal").modal("hide");
+
+    $("#submit-form").on("click", (e) => {
+      if (!isValidInput())
+        $("#exampleInputName")
+          .removeClass("is-valid")
+          .addClass("is-invalid")
+          .on("keypress", (e) => {
+            if (isValidInput(e.target.value)) {
+              $("#exampleInputName")
+                .removeClass("is-invalid")
+                .addClass("is-valid");
+            } else {
+              $("#exampleInputName")
+                .removeClass("is-valid")
+                .addClass("is-invalid");
+            }
+          });
+      else {
+        $("#exampleInputName").removeClass("is-invalid").addClass("is-valid");
+        setTimeout(() => {
+          hideModal();
+          $("#hello")
+            .removeClass("hide")
+            .append(" " + $("#exampleInputName").val());
+        }, 400);
+      }
+    });
+
+    $("#close-form").on("click", function (e) {
+      if (!isValidInput()) {
+        setTimeout(() => {
+          showModal();
+        }, 500);
+      }
+    });
+  </script>
+</html>
